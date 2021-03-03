@@ -1,0 +1,8 @@
+tab:unnamed-chunk-4
+fig:unnamed-chunk-6
+población
+consulta-externa
+atención-hospitales-egresos
+atención-hospitales-cirugias
+partos-rn
+medicina-del-trabajo
