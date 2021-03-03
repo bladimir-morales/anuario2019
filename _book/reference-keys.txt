@@ -1,5 +1,7 @@
 tab:unnamed-chunk-4
 fig:unnamed-chunk-6
+fig:unnamed-chunk-8
+tab:unnamed-chunk-10
 población
 consulta-externa
 atención-hospitales-egresos

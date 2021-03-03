@@ -1,7 +1,6 @@
 
 # Población
 
-asdasd
 ```{r include=F}
 library(tidyverse)
 library(plotly)
@@ -9,7 +8,6 @@ library(plotly)
 
 ```{r include=F}
 dep<-c("La Paz","Santa Cruz","Cochabamba","Tarija","Chuquisaca","Oruro","Potosí","Beni","Pando")
-
 ```
 
 ```{r echo=F}
@@ -30,7 +28,6 @@ knitr::kable(
 m<-51
 f<-49
 sexo<-data.frame(sexo=c("Masculino","Femenino"),Porcentaje=c(51,49))
-
 ```
 
 ```{r echo=F,fig.cap="Distribución porcentual de la Población por sexo"}
@@ -48,11 +45,48 @@ ppob<-pob %>%
   mutate(porcentaje=round(Total/sum(Total)*100,0))
 ```
 
-```{r echo=F}
+```{r echo=F,fig.cap="Distribución porcentual de la Población por Regional"}
 ggplotly(
   ggplot(ppob,aes(Regional,porcentaje,fill=Regional)) +
     geom_bar(stat="identity")+
     coord_flip()
 )
 ```
+
+```{r include=F}
+pob_es<-data.frame(Edad=c("Menos de 1","1 a 4","5 a 9","10 a 14","15 a 19","20 a 24","25 a 29","30 a 34",
+                 "35 a 39","40 a 44","45 a 49","50 a 54","55 a 59","60 a 64","65 a 69","70 a 74","75 o más"),
+          Femenino=c(1213,5412,6191,4218,2825,2274,6151,7307,5558,3671,2125,1380,1185,1164,857,601,626),
+          Masculino=c(1267,5385,6242,4582,2735,2168,5523,6890,5468,3547,2301,1435,1078,1030,815,559,633)) %>% 
+  mutate(Edad=factor(Edad,levels = c("Menos de 1","1 a 4","5 a 9","10 a 14","15 a 19","20 a 24","25 a 29","30 a 34",
+                 "35 a 39","40 a 44","45 a 49","50 a 54","55 a 59","60 a 64","65 a 69","70 a 74","75 o más")),
+         Total=Femenino+Masculino)
+pob_es_graf<-pob_es %>% 
+  select(Edad,Femenino,Masculino) %>% 
+  mutate(Masculino=Masculino*-1) %>% 
+  gather(Sexo,Poblacion,2:3)
+```
+```{r echo=F}
+knitr::kable(
+  pob_es,booktabs=T,
+  caption="Población asegurada, por edad y sexo")
+```
+
+```{r echo=F}
+ggplotly(
+  ggplot(pob_es_graf,
+         aes(x=Edad,y=Poblacion,fill=Sexo))+
+    geom_col(alpha = 0.6) + 
+    coord_flip() +
+  # colores que me gustan
+    scale_fill_manual(values = c("red","#108BF3")) +
+  # etiquetas en positivo
+    scale_y_continuous(labels = abs) +
+    labs(
+      y = "Porcentaje de la población total",
+      x = "Quinquenios de edad",
+      title = "Pirámide de población de Casos Positivos")
+)
+```
+
 
