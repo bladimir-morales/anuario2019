@@ -4,6 +4,7 @@ author: "Caja de Salud de la Banca Privada"
 date: "2021"
 site: bookdown::bookdown_site
 documentclass: book
+graphics: yes
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
@@ -11,60 +12,6 @@ description: ""
 always_allow_html: yes
 ---
 
-# Población
+# Prefacio{-}
 
-asdasd
-```{r include=F}
-library(tidyverse)
-library(plotly)
-```
-
-```{r include=F}
-dep<-c("La Paz","Santa Cruz","Cochabamba","Tarija","Chuquisaca","Oruro","Potosí","Beni","Pando")
-
-```
-
-```{r echo=F}
-pob<-data.frame(Regional=dep,
-           Femenino=c(20933,14418,9203,2157,1649,4519,1273,1251,305),
-           Masculino=c(18947,16832,8204,1819,1784,1481,1165,1162,264),
-           Total=c(39880,31250,17407,3976,3433,3050,2438,2413,569)) 
-```
-
-```{r echo=F}
-knitr::kable(
-  pob,booktabs=TRUE,
-  caption="Población asegurada, por regional y sexo")
-```
-
-
-```{r include=FALSE}
-m<-51
-f<-49
-sexo<-data.frame(sexo=c("Masculino","Femenino"),Porcentaje=c(51,49))
-
-```
-
-```{r echo=F,fig.cap="Distribución porcentual de la Población por sexo"}
-#ggplotly(
-  ggplot(sexo,aes(x="",Porcentaje,fill=sexo)) +
-    geom_bar(stat="identity") +
-    coord_polar(theta="y") +
-    theme_void()
-#)
-```
-
-
-```{r echo=F}
-ppob<-pob %>% 
-  mutate(porcentaje=round(Total/sum(Total)*100,0))
-```
-
-```{r echo=F}
-ggplotly(
-  ggplot(ppob,aes(Regional,porcentaje,fill=Regional)) +
-    geom_bar(stat="identity")+
-    coord_flip()
-)
-```
-
+# Estructura del anuario {-}
